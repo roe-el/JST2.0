@@ -3,69 +3,69 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingBottom="16dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="56dp"
-                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
                 tools:context=".MainActivity">
 
 
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
 
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Map"
                     android:id="@+id/btnMap"
-                    android:layout_weight="1" />
-
-                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Satellite"
+                    android:layout_weight="1"
+                    android:text="Map" />
+
+                <Button
                     android:id="@+id/btnSatellite"
-                    android:layout_weight="1" />
-
-                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hybrid"
+                    android:layout_weight="1"
+                    android:text="Satellite" />
+
+                <Button
                     android:id="@+id/btnHybrid"
-                    android:layout_weight="1" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hybrid" />
             </LinearLayout>
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:id="@+id/map"
+            <fragment android:id="@+id/map"
+                      android:name="com.google.android.gms.maps.MapFragment"
+                      xmlns:android="http://schemas.android.com/apk/res/android"
                       android:layout_width="match_parent"
-                      android:layout_height="fill_parent"
-                      android:name="com.google.android.gms.maps.MapFragment"/>
+                      android:layout_height="fill_parent"/>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnWalmart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="Wal-Mart"
-            android:id="@+id/btnWalmart"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="Wal-Mart" />
 
 
     </RelativeLayout>

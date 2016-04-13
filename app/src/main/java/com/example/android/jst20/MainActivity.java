@@ -30,7 +30,14 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+//creating a CameraPosition to flyTo
+static final CameraPosition WALMART = CameraPosition.builder()
+        .target(new LatLng(27.489250, -97.853612))
+        .zoom(17)
+        .bearing(0)
+        .tilt(45)
+        .build();
 //GoogleMap object
 GoogleMap m_map;
 boolean mapReady = false;
@@ -45,14 +52,6 @@ public Resources getResources() {
     return super.getResources();
 }
 
-//creating a CameraPosition to flyTo
-static final CameraPosition WALMART = CameraPosition.builder()
-        .target(new LatLng(27.489250, -97.853612))
-        .zoom(17)
-        .bearing(0)
-        .tilt(45)
-        .build();
-
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -63,8 +62,7 @@ protected void onCreate(Bundle savedInstanceState) {
             .title("Bishop Hall")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));//Custom icon
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
+
     //Wiring button for flyTo
     Button btnWalmart = (Button) findViewById(R.id.btnWalmart);
     btnWalmart.setOnClickListener(new View.OnClickListener() {
