@@ -33,21 +33,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Map" />
+                    android:text="Map"
+                    android:textAllCaps="true"/>
 
                 <Button
                     android:id="@+id/btnSatellite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Satellite" />
+                    android:text="Satellite"
+                    android:textAllCaps="true"/>
 
                 <Button
                     android:id="@+id/btnHybrid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hybrid" />
+                    android:text="Hybrid"
+                    android:textAllCaps="true"/>
             </LinearLayout>
 
             <fragment android:id="@+id/map"
@@ -65,7 +68,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
-            android:text="Wal-Mart" />
+            android:text="Find Bus"
+            android:textAllCaps="true"/>
 
 
     </RelativeLayout>
