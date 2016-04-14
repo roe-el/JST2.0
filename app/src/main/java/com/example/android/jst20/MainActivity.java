@@ -6,14 +6,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Button;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -25,57 +23,37 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 //Ubidots imports
-import android.content.Context;
-import android.graphics.Color;
-import android.location.Location;
 
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 
 import com.github.mikephil.charting.data.Entry;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.model.Circle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import com.google.android.gms.common.ConnectionResult;
 
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-//TODO:Switch lat and long in all the code!
+
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 //GoogleMap object
 GoogleMap m_map;
 boolean mapReady = false;
-//MarkerOptions Class defines marker
-MarkerOptions bishopHall;
 //For polylines
 LatLng collegeHall2 = new LatLng(27.525138, -97.882431);
 LatLng walMart2 = new LatLng(27.489250, -97.853612);
+
+
+
+
+
+//MarkerOptions Class defines marker
+MarkerOptions turnerBishop;
+MarkerOptions mesquiteVillage;
+MarkerOptions businessBuilding;
+MarkerOptions javelinaStation;
+MarkerOptions jerniganLibrary;
 //Ubidots variables
 private String API_KEY = "HKM7SOBdxgPaW9hVNgquUU0IWYP7sv";
 private String coordinatesID = "56d5d69d7625424120f93ca2";
@@ -93,11 +71,26 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     //MarkerOptions created
-    bishopHall = new MarkerOptions()
-            .position(new LatLng(27.525357, -97.884611))
+    turnerBishop = new MarkerOptions()
+            .position(new LatLng(27.523646, -97.884196))
             .title("Bishop Hall")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));//Custom icon
-
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    mesquiteVillage = new MarkerOptions()
+            .position(new LatLng(27.526586, -97.884106))
+            .title("Mesquite Village")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    businessBuilding = new MarkerOptions()
+            .position(new LatLng(27.527186, -97.882553))
+            .title("Business Building")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    javelinaStation = new MarkerOptions()
+            .position(new LatLng(27.530239, -97.883928))
+            .title("Javelina Station")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    jerniganLibrary= new MarkerOptions()
+            .position(new LatLng(27.525628, -97.882072))
+            .title("Jernigan Library")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
 
     //Wiring button for flyTo
     Button btnWalmart = (Button) findViewById(R.id.btnWalmart);
@@ -167,22 +160,22 @@ public void getCoords() {
                     String second = tokens.nextToken();
                     String third = tokens.nextToken();
 
-                    lat1 = tokens.nextToken();//-97
+                    lng1 = tokens.nextToken();//-97
 
                     String fifth = tokens.nextToken();
                     String sixth = tokens.nextToken();
                     String seventh = tokens.nextToken();
 
-                    lng1 = tokens.nextToken();//27
+                    lat1 = tokens.nextToken();//27
 
 
                     //"{"Lat": "  27.495609", "Long": " -97.870003"}"
 
-                    double lat = Double.parseDouble(lat1);
                     double lng = Double.parseDouble(lng1);
+                    double lat = Double.parseDouble(lat1);
                     //creating a CameraPosition to flyTo
                     CameraPosition BUS = CameraPosition.builder()
-                            .target(new LatLng(lng, lat))
+                            .target(new LatLng(lat, lng))
                             .zoom(17)
                             .bearing(0)
                             .tilt(45)
@@ -198,7 +191,7 @@ public void getCoords() {
 }
 
 private void flyTo(CameraPosition target) {
-    m_map.animateCamera(CameraUpdateFactory.newCameraPosition(target), 10000, null);
+    m_map.animateCamera(CameraUpdateFactory.newCameraPosition(target), 1000, null);
 
 
 }
@@ -232,7 +225,12 @@ public void onMapReady(GoogleMap map) {
     mapReady = true;
     m_map = map;
     //Add markers here
-    m_map.addMarker(bishopHall);
+    m_map.addMarker(turnerBishop);
+    m_map.addMarker(jerniganLibrary);
+    m_map.addMarker(javelinaStation);
+    m_map.addMarker(mesquiteVillage);
+    m_map.addMarker(businessBuilding);
+
     //Setting and view collegeHall in three lines and can add more functionality
     LatLng collegeHall = new LatLng(27.525138, -97.882431);
     CameraPosition target = CameraPosition.builder().target(collegeHall).zoom(18).build();
