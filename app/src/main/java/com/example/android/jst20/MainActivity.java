@@ -154,7 +154,7 @@ public void getCoords() {
                 @Override
                 public void run() {
                     coords = con;
-                    //"{"Lat": "  27.495609", "Long": " -97.870003"}"
+                    //Tokenize the string of the JSON object
                     StringTokenizer tokens = new StringTokenizer(coords, "\"");
                     String first = tokens.nextToken();
                     String second = tokens.nextToken();
@@ -237,21 +237,8 @@ public void onMapReady(GoogleMap map) {
     m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 
     //Creating lines
-    map.addPolyline(new PolylineOptions().geodesic(true)
+    map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
             .add(collegeHall2)
             .add(walMart2));
-
-    //map.addPolygon(new PolygonOptions().add(collegeHall2, walMart2).fillColor(Color.GREEN));
-
-    //Making a circle
-    map.addCircle(new CircleOptions()
-            .center(collegeHall2)
-            .radius(5000)
-            .strokeColor(Color.GREEN)
-            .fillColor(Color.argb(64, 0, 255, 0)));//partialy transparent
-
-//    Creating initial flyTo for NEWYORK
-//    m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//    flyTo(NEWYORK);
 }
 }
