@@ -24,20 +24,50 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+//Ubidots imports
+import android.content.Context;
+import android.graphics.Color;
+import android.location.Location;
 
+import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 
+import com.github.mikephil.charting.data.Entry;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.Circle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import com.google.android.gms.common.ConnectionResult;
+
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationListener;
+//TODO:Switch lat and long in all the code!
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-//creating a CameraPosition to flyTo
-static final CameraPosition WALMART = CameraPosition.builder()
-        .target(new LatLng(27.489250, -97.853612))
-        .zoom(17)
-        .bearing(0)
-        .tilt(45)
-        .build();
+
 //GoogleMap object
 GoogleMap m_map;
 boolean mapReady = false;
@@ -46,6 +76,12 @@ MarkerOptions bishopHall;
 //For polylines
 LatLng collegeHall2 = new LatLng(27.525138, -97.882431);
 LatLng walMart2 = new LatLng(27.489250, -97.853612);
+//Ubidots variables
+private String API_KEY = "HKM7SOBdxgPaW9hVNgquUU0IWYP7sv";
+private String coordinatesID = "56d5d69d7625424120f93ca2";
+private String coords;
+private String lat1;
+private String lng1;
 
 @Override
 public Resources getResources() {
@@ -69,7 +105,7 @@ protected void onCreate(Bundle savedInstanceState) {
         @Override
         public void onClick(View v) {
             if (mapReady)
-                flyTo(WALMART);
+                getCoords();
         }
     });
 
@@ -103,6 +139,62 @@ protected void onCreate(Bundle savedInstanceState) {
 
     MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
+}
+public void getCoords() {
+    (new UbidotsClient()).handleUbidots(coordinatesID, API_KEY, new UbidotsClient.UbiListener() {
+        @Override
+        public void onDataReady(List<UbidotsClient.Value> result) {
+            Log.d("Coords", "======== On data Ready ===========");
+
+            List<Entry> entries = new ArrayList();
+
+
+            Entry be = new Entry(result.get(0).value, 0);
+            entries.add(be);
+            Log.d("Data", be.toString());
+
+            final String con = result.get(0).context;
+
+
+            Handler handler = new Handler(MainActivity.this.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    coords = con;
+                    //"{"Lat": "  27.495609", "Long": " -97.870003"}"
+                    StringTokenizer tokens = new StringTokenizer(coords, "\"");
+                    String first = tokens.nextToken();
+                    String second = tokens.nextToken();
+                    String third = tokens.nextToken();
+
+                    lat1 = tokens.nextToken();//-97
+
+                    String fifth = tokens.nextToken();
+                    String sixth = tokens.nextToken();
+                    String seventh = tokens.nextToken();
+
+                    lng1 = tokens.nextToken();//27
+
+
+                    //"{"Lat": "  27.495609", "Long": " -97.870003"}"
+
+                    double lat = Double.parseDouble(lat1);
+                    double lng = Double.parseDouble(lng1);
+                    //creating a CameraPosition to flyTo
+                    CameraPosition BUS = CameraPosition.builder()
+                            .target(new LatLng(lng, lat))
+                            .zoom(17)
+                            .bearing(0)
+                            .tilt(45)
+                            .build();
+                    flyTo(BUS);
+                }
+            });
+
+        }
+    });
+
+
 }
 
 private void flyTo(CameraPosition target) {
