@@ -48,12 +48,23 @@ LatLng walMart2 = new LatLng(27.489250, -97.853612);
 
 
 
-//MarkerOptions Class defines marker
+//MarkerOptions Class defines Blue route marker
 MarkerOptions turnerBishop;
 MarkerOptions mesquiteVillage;
 MarkerOptions businessBuilding;
 MarkerOptions javelinaStation;
 MarkerOptions jerniganLibrary;
+//MarkerOptions for Gold route
+MarkerOptions wAveCParkingLot;
+MarkerOptions steinkeGymParkingLot;
+MarkerOptions klebergHall;
+MarkerOptions manningHallParkingLot;
+MarkerOptions healthRecCenterParkingLot;
+MarkerOptions studentUnionBuilding;
+
+LatLng Student_Union_Building = new LatLng(27.523337, -97.882248);
+
+
 //Ubidots variables
 private String API_KEY = "HKM7SOBdxgPaW9hVNgquUU0IWYP7sv";
 private String coordinatesID = "56d5d69d7625424120f93ca2";
@@ -70,7 +81,7 @@ public Resources getResources() {
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    //MarkerOptions created
+    //MarkerOptions for Blue route created
     turnerBishop = new MarkerOptions()
             .position(new LatLng(27.523646, -97.884196))
             .title("Bishop Hall")
@@ -92,6 +103,31 @@ protected void onCreate(Bundle savedInstanceState) {
             .title("Jernigan Library")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
 
+    //MarkerOptions for Gold route created
+    wAveCParkingLot = new MarkerOptions()
+            .position(new LatLng(27.527511, -97.878625))
+            .title("Bishop Hall")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    steinkeGymParkingLot = new MarkerOptions()
+            .position(new LatLng(27.526617, -97.878936))
+            .title("Mesquite Village")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    klebergHall = new MarkerOptions()
+            .position(new LatLng(27.526379, -97.881028))
+            .title("Business Building")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    healthRecCenterParkingLot = new MarkerOptions()
+            .position(new LatLng(27.525152, -97.879977))
+            .title("Javelina Station")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    manningHallParkingLot = new MarkerOptions()
+            .position(new LatLng(27.523675, -97.878681))
+            .title("Javelina Station")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+    studentUnionBuilding= new MarkerOptions()
+            .position(new LatLng(27.523337, -97.882248))
+            .title("Jernigan Library")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
     //Wiring button for flyTo
     Button btnWalmart = (Button) findViewById(R.id.btnWalmart);
     btnWalmart.setOnClickListener(new View.OnClickListener() {
@@ -240,5 +276,8 @@ public void onMapReady(GoogleMap map) {
     map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
             .add(collegeHall2)
             .add(walMart2));
+
+
+
 }
 }
