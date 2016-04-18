@@ -106,28 +106,28 @@ protected void onCreate(Bundle savedInstanceState) {
     //MarkerOptions for Gold route created
     wAveCParkingLot = new MarkerOptions()
             .position(new LatLng(27.527511, -97.878625))
-            .title("Bishop Hall")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("West Avenue C Parking Lot")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     steinkeGymParkingLot = new MarkerOptions()
             .position(new LatLng(27.526617, -97.878936))
-            .title("Mesquite Village")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("Steinke Gym Parking Lot")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     klebergHall = new MarkerOptions()
             .position(new LatLng(27.526379, -97.881028))
-            .title("Business Building")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("Kleberg Hall")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     healthRecCenterParkingLot = new MarkerOptions()
             .position(new LatLng(27.525152, -97.879977))
-            .title("Javelina Station")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("Health & Rec Center Parking Lot")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     manningHallParkingLot = new MarkerOptions()
             .position(new LatLng(27.523675, -97.878681))
-            .title("Javelina Station")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("Manning Hall")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     studentUnionBuilding= new MarkerOptions()
             .position(new LatLng(27.523337, -97.882248))
-            .title("Jernigan Library")
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop));//Custom icon
+            .title("Student Union Building")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     //Wiring button for flyTo
     Button btnWalmart = (Button) findViewById(R.id.btnWalmart);
     btnWalmart.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +209,7 @@ public void getCoords() {
 
                     double lng = Double.parseDouble(lng1);
                     double lat = Double.parseDouble(lat1);
+                    m_map.addMarker(new MarkerOptions().position(new LatLng(lat,lng)).title("BUS").icon(BitmapDescriptorFactory.fromResource(R.drawable.bus_marker)));
                     //creating a CameraPosition to flyTo
                     CameraPosition BUS = CameraPosition.builder()
                             .target(new LatLng(lat, lng))
@@ -216,6 +217,7 @@ public void getCoords() {
                             .bearing(0)
                             .tilt(45)
                             .build();
+
                     flyTo(BUS);
                 }
             });
@@ -266,16 +268,21 @@ public void onMapReady(GoogleMap map) {
     m_map.addMarker(javelinaStation);
     m_map.addMarker(mesquiteVillage);
     m_map.addMarker(businessBuilding);
-
+    m_map.addMarker(wAveCParkingLot);
+    m_map.addMarker(steinkeGymParkingLot);
+    m_map.addMarker(klebergHall);
+    m_map.addMarker(healthRecCenterParkingLot);
+    m_map.addMarker(manningHallParkingLot);
+    m_map.addMarker(studentUnionBuilding);
     //Setting and view collegeHall in three lines and can add more functionality
     LatLng collegeHall = new LatLng(27.525138, -97.882431);
     CameraPosition target = CameraPosition.builder().target(collegeHall).zoom(18).build();
     m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
-
+//f1f73e
     //Creating lines
-    map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
-            .add(collegeHall2)
-            .add(walMart2));
+//    map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
+//            .add(collegeHall2)
+//            .add(walMart2));
 
 
 
