@@ -59,7 +59,7 @@ MarkerOptions wAveCParkingLot;
 MarkerOptions steinkeGymParkingLot;
 MarkerOptions klebergHall;
 MarkerOptions manningHallParkingLot;
-MarkerOptions healthRecCenterParkingLot;
+MarkerOptions englishMusicParkingLot;
 MarkerOptions studentUnionBuilding;
 
 LatLng Student_Union_Building = new LatLng(27.523337, -97.882248);
@@ -116,9 +116,9 @@ protected void onCreate(Bundle savedInstanceState) {
             .position(new LatLng(27.526379, -97.881028))
             .title("Kleberg Hall")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
-    healthRecCenterParkingLot = new MarkerOptions()
+    englishMusicParkingLot = new MarkerOptions()
             .position(new LatLng(27.525152, -97.879977))
-            .title("Health & Rec Center Parking Lot")
+            .title("English & Music Parking Lot")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     manningHallParkingLot = new MarkerOptions()
             .position(new LatLng(27.523675, -97.878681))
@@ -213,9 +213,9 @@ public void getCoords() {
                     //creating a CameraPosition to flyTo
                     CameraPosition BUS = CameraPosition.builder()
                             .target(new LatLng(lat, lng))
-                            .zoom(17)
+                            .zoom(18)
                             .bearing(0)
-                            .tilt(45)
+                            .tilt(15)
                             .build();
 
                     flyTo(BUS);
@@ -271,19 +271,104 @@ public void onMapReady(GoogleMap map) {
     m_map.addMarker(wAveCParkingLot);
     m_map.addMarker(steinkeGymParkingLot);
     m_map.addMarker(klebergHall);
-    m_map.addMarker(healthRecCenterParkingLot);
+    m_map.addMarker(englishMusicParkingLot);
     m_map.addMarker(manningHallParkingLot);
     m_map.addMarker(studentUnionBuilding);
+    //Newman Hall
+    LatLng Newman_Hall = new LatLng(27.529989, -97.884042);
+    m_map.addMarker(new MarkerOptions().position(Newman_Hall).title("Newman Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop)));
+    //Javelina Dining Hall
+    LatLng Javelina_Dining_Hall = new LatLng(27.525364, -97.884648);
+    m_map.addMarker(new MarkerOptions().position(Javelina_Dining_Hall).title("Javelina Dining Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop)));
+    //Kingsville Legends
+    LatLng Kingsville_Legends = new LatLng(27.522352, -97.886422);
+    m_map.addMarker(new MarkerOptions().position(Kingsville_Legends).title("Kingsville Legends").icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop)));
     //Setting and view collegeHall in three lines and can add more functionality
     LatLng collegeHall = new LatLng(27.525138, -97.882431);
     CameraPosition target = CameraPosition.builder().target(collegeHall).zoom(18).build();
     m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+
+
+    //markers for bus stops outside of TAMUK campus
+//Shell Store
+    LatLng Shell_Store = new LatLng(27.53047, -97.87773);
+    m_map.addMarker(new MarkerOptions().position(Shell_Store).title("Shell Store"));
+
+//Post Office and Kleberg Bank
+    LatLng Kleberg_Bank_and_Post_Office = new LatLng(27.516722, -97.867930);
+    m_map.addMarker(new MarkerOptions().position(Kleberg_Bank_and_Post_Office).title("Kleberg Bank and Post Office"));
+
+//HEB
+    LatLng HEB = new LatLng(27.516033, -97.863034);
+    m_map.addMarker(new MarkerOptions().position(HEB).title("HEB"));
+
+//Wells Fargo
+    LatLng Wells_Fargo = new LatLng(27.511336, -97.856504);
+    m_map.addMarker(new MarkerOptions().position(Wells_Fargo).title("Wells Fargo"));
+
+//Walgreens
+    LatLng Walgreens = new LatLng(27.516001, -97.856611);
+    m_map.addMarker(new MarkerOptions().position(Walgreens).title("Walgreens"));
+
+//Sundial Plaza
+    LatLng Sundial_Plaza = new LatLng(27.506978, -97.854911);
+    m_map.addMarker(new MarkerOptions().position(Sundial_Plaza).title("Sundial Plaza"));
+
+//Southgate Mall
+    LatLng Southgate_Mall = new LatLng(27.494645, -97.857428);
+    m_map.addMarker(new MarkerOptions().position(Southgate_Mall).title("Southgate Mall"));
+
+//WalMart
+    LatLng Walmart = new LatLng(27.489848, -97.853845);
+    m_map.addMarker(new MarkerOptions().position(Walmart).title("Walmart"));
+
+//Whataburger&Chilis
+    LatLng Whataburger_Chilis = new LatLng(27.490495, -97.848534);
+    m_map.addMarker(new MarkerOptions().position(Whataburger_Chilis).title("Whataburger & Chilis"));
+
+//Wildhorse mall
+    LatLng Wildhorse = new LatLng(27.500853, -97.842932);
+    m_map.addMarker(new MarkerOptions().position(Wildhorse).title("Wildhorse Mall"));
 //f1f73e
     //Creating lines
 //    map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
 //            .add(collegeHall2)
 //            .add(walMart2));
-
+//bus routes
+    //blue bus route (left side of campus)
+    m_map.addPolyline(new PolylineOptions()
+            .add(new LatLng(27.530239, -97.883928)).add(new LatLng(27.530249, -97.882496))
+            .add(new LatLng(27.526500, -97.882464)).add(new LatLng(27.526462, -97.885661))
+            .add(new LatLng(27.523646, -97.885634)).add(new LatLng(27.523646, -97.884196))
+            .add(new LatLng(27.525121, -97.884175)) .add(new LatLng(27.525121, -97.883102))
+                    //start of loop around College Hall
+            .add(new LatLng(27.524948, -97.883026)).add(new LatLng(27.524759, -97.882877))
+            .add(new LatLng(27.524657, -97.882662)).add(new LatLng(27.524578, -97.882405))
+            .add(new LatLng(27.524709, -97.882083)).add(new LatLng(27.524854, -97.881911))
+            .add(new LatLng(27.525032, -97.881831)).add(new LatLng(27.525187, -97.881782))
+            .add(new LatLng(27.525408, -97.881831)).add(new LatLng(27.525598, -97.881997))
+            .add(new LatLng(27.525684, -97.882195)).add(new LatLng(27.525723, -97.882436))
+            .add(new LatLng(27.526491, -97.882436))
+            .width(15)
+            .color(getResources().getColor(R.color.colorPrimary)));
+    //gold bus route (right side of campus)
+    m_map.addPolyline(new PolylineOptions()
+            .add(new LatLng(27.530365, -97.881690)).add(new LatLng(27.530253, -97.882495))
+            .add(new LatLng(27.527342, -97.882441)).add(new LatLng(27.527528, -97.877908))
+            .add(new LatLng(27.526543, -97.877881)).add(new LatLng(27.526500, -97.881202))
+            .add(new LatLng(27.525168, -97.881181)).add(new LatLng(27.525206, -97.877844))
+            .add(new LatLng(27.525206, -97.877844)).add(new LatLng(27.523465, -97.877820))
+            .add(new LatLng(27.523518, -97.878992)).add(new LatLng(27.522571, -97.878997))
+            .add(new LatLng(27.522557, -97.880842)).add(new LatLng(27.522614, -97.881159))
+            .add(new LatLng(27.522590, -97.882237))
+                    //start of loop around College Hall
+            .add(new LatLng(27.524598, -97.882309)).add(new LatLng(27.524709, -97.882081))
+            .add(new LatLng(27.524854, -97.881909)).add(new LatLng(27.525032, -97.881828))
+            .add(new LatLng(27.525187, -97.881779)).add(new LatLng(27.525408, -97.881828))
+            .add(new LatLng(27.525598, -97.881994)).add(new LatLng(27.525684, -97.882194))
+            .add(new LatLng(27.525723, -97.882439)).add(new LatLng(27.527342, -97.882441))
+            .width(15)
+            .color(Color.YELLOW));
 
 
 }
