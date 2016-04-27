@@ -142,33 +142,7 @@ protected void onCreate(Bundle savedInstanceState) {
         }
     });
 
-    //Setting Normal Button
-    Button btnMap = (Button) findViewById(R.id.btnMap);
-    btnMap.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mapReady)
-                m_map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }
-    });
-    //Setting Satellite Button
-    Button btnSatellite = (Button) findViewById(R.id.btnSatellite);
-    btnSatellite.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mapReady)
-                m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        }
-    });
-    //Setting Hybrid Button
-    Button btnHybrid = (Button) findViewById(R.id.btnHybrid);
-    btnHybrid.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mapReady)
-                m_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        }
-    });
+
 
     MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
@@ -261,19 +235,19 @@ public boolean onOptionsItemSelected(MenuItem item) {
             // User chose the "Favorite" action, mark the current item
             // as a favorite...
             //return true;
-            Toast.makeText(MainActivity.this,"map",Toast.LENGTH_SHORT).show();
+            m_map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             return true;
         case R.id.action_hybrid:
             // User chose the "Favorite" action, mark the current item
             // as a favorite...
             //return true;
-            Toast.makeText(MainActivity.this,"hybrid",Toast.LENGTH_SHORT).show();
+            m_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             return true;
         case R.id.action_satellite:
             // User chose the "Favorite" action, mark the current item
             // as a favorite...
 
-            Toast.makeText(MainActivity.this,"satellite",Toast.LENGTH_SHORT).show();
+            m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
             return true;
         default:
             // If we got here, the user's action was not recognized.
