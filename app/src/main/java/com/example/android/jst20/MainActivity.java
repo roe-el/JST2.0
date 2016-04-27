@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -29,6 +29,7 @@ import android.os.Handler;
 import com.github.mikephil.charting.data.Entry;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +73,8 @@ private String coords;
 private String lat1;
 private String lng1;
 
+
+
 @Override
 public Resources getResources() {
     return super.getResources();
@@ -81,6 +84,7 @@ public Resources getResources() {
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     //MarkerOptions for Blue route created
     turnerBishop = new MarkerOptions()
             .position(new LatLng(27.523646, -97.884196))
@@ -129,8 +133,8 @@ protected void onCreate(Bundle savedInstanceState) {
             .title("Student Union Building")
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop));//Custom icon
     //Wiring button for flyTo
-    Button btnWalmart = (Button) findViewById(R.id.btnWalmart);
-    btnWalmart.setOnClickListener(new View.OnClickListener() {
+    Button btnBus = (Button) findViewById(R.id.btnBus);
+    btnBus.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (mapReady)
@@ -247,14 +251,36 @@ public boolean onOptionsItemSelected(MenuItem item) {
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
+    switch (item.getItemId()) {
+        case R.id.action_about:
+            // User chose the "Settings" item, show the app settings UI...
+            //return true;
+            Toast.makeText(MainActivity.this,"This works",Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.action_map:
+            // User chose the "Favorite" action, mark the current item
+            // as a favorite...
+            //return true;
+            Toast.makeText(MainActivity.this,"map",Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.action_hybrid:
+            // User chose the "Favorite" action, mark the current item
+            // as a favorite...
+            //return true;
+            Toast.makeText(MainActivity.this,"hybrid",Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.action_satellite:
+            // User chose the "Favorite" action, mark the current item
+            // as a favorite...
 
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-        return true;
+            Toast.makeText(MainActivity.this,"satellite",Toast.LENGTH_SHORT).show();
+            return true;
+        default:
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            return super.onOptionsItemSelected(item);
+
     }
-
-    return super.onOptionsItemSelected(item);
 }
 
 //@params Passing GoogleMap map to m_map
@@ -283,52 +309,56 @@ public void onMapReady(GoogleMap map) {
     //Kingsville Legends
     LatLng Kingsville_Legends = new LatLng(27.522352, -97.886422);
     m_map.addMarker(new MarkerOptions().position(Kingsville_Legends).title("Kingsville Legends").icon(BitmapDescriptorFactory.fromResource(R.drawable.blue_bus_stop)));
+    //Gold Bus route start(University Square)
+    LatLng University_Square = new LatLng(27.530368, -97.881767);
+    m_map.addMarker(new MarkerOptions().position(University_Square).title("University Square Apartments").icon(BitmapDescriptorFactory.fromResource(R.drawable.yellow_bus_stop)));
     //Setting and view collegeHall in three lines and can add more functionality
     LatLng collegeHall = new LatLng(27.525138, -97.882431);
-    CameraPosition target = CameraPosition.builder().target(collegeHall).zoom(18).build();
+    m_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+    CameraPosition target = CameraPosition.builder().target(collegeHall).zoom(16).build();
     m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 
 
     //markers for bus stops outside of TAMUK campus
 //Shell Store
     LatLng Shell_Store = new LatLng(27.53047, -97.87773);
-    m_map.addMarker(new MarkerOptions().position(Shell_Store).title("Shell Store"));
+    m_map.addMarker(new MarkerOptions().position(Shell_Store).title("Shell Store").icon(BitmapDescriptorFactory.fromResource(R.drawable.conveniencestore)));
 
 //Post Office and Kleberg Bank
     LatLng Kleberg_Bank_and_Post_Office = new LatLng(27.516722, -97.867930);
-    m_map.addMarker(new MarkerOptions().position(Kleberg_Bank_and_Post_Office).title("Kleberg Bank and Post Office"));
+    m_map.addMarker(new MarkerOptions().position(Kleberg_Bank_and_Post_Office).title("Kleberg Bank and Post Office").icon(BitmapDescriptorFactory.fromResource(R.drawable.postal)));
 
 //HEB
     LatLng HEB = new LatLng(27.516033, -97.863034);
-    m_map.addMarker(new MarkerOptions().position(HEB).title("HEB"));
+    m_map.addMarker(new MarkerOptions().position(HEB).title("HEB").icon(BitmapDescriptorFactory.fromResource(R.drawable.supermarket)));
 
 //Wells Fargo
     LatLng Wells_Fargo = new LatLng(27.511336, -97.856504);
-    m_map.addMarker(new MarkerOptions().position(Wells_Fargo).title("Wells Fargo"));
+    m_map.addMarker(new MarkerOptions().position(Wells_Fargo).title("Wells Fargo").icon(BitmapDescriptorFactory.fromResource(R.drawable.bank)));
 
 //Walgreens
     LatLng Walgreens = new LatLng(27.516001, -97.856611);
-    m_map.addMarker(new MarkerOptions().position(Walgreens).title("Walgreens"));
+    m_map.addMarker(new MarkerOptions().position(Walgreens).title("Walgreens").icon(BitmapDescriptorFactory.fromResource(R.drawable.conveniencestore)));
 
 //Sundial Plaza
     LatLng Sundial_Plaza = new LatLng(27.506978, -97.854911);
-    m_map.addMarker(new MarkerOptions().position(Sundial_Plaza).title("Sundial Plaza"));
+    m_map.addMarker(new MarkerOptions().position(Sundial_Plaza).title("Sundial Plaza").icon(BitmapDescriptorFactory.fromResource(R.drawable.sandwich)));
 
 //Southgate Mall
     LatLng Southgate_Mall = new LatLng(27.494645, -97.857428);
-    m_map.addMarker(new MarkerOptions().position(Southgate_Mall).title("Southgate Mall"));
+    m_map.addMarker(new MarkerOptions().position(Southgate_Mall).title("Southgate Mall").icon(BitmapDescriptorFactory.fromResource(R.drawable.mall)));
 
 //WalMart
     LatLng Walmart = new LatLng(27.489848, -97.853845);
-    m_map.addMarker(new MarkerOptions().position(Walmart).title("Walmart"));
+    m_map.addMarker(new MarkerOptions().position(Walmart).title("Walmart").icon(BitmapDescriptorFactory.fromResource(R.drawable.supermarket)));
 
 //Whataburger&Chilis
     LatLng Whataburger_Chilis = new LatLng(27.490495, -97.848534);
-    m_map.addMarker(new MarkerOptions().position(Whataburger_Chilis).title("Whataburger & Chilis"));
+    m_map.addMarker(new MarkerOptions().position(Whataburger_Chilis).title("Whataburger & Chilis").icon(BitmapDescriptorFactory.fromResource(R.drawable.burger)));
 
 //Wildhorse mall
     LatLng Wildhorse = new LatLng(27.500853, -97.842932);
-    m_map.addMarker(new MarkerOptions().position(Wildhorse).title("Wildhorse Mall"));
+    m_map.addMarker(new MarkerOptions().position(Wildhorse).title("Wildhorse Mall").icon(BitmapDescriptorFactory.fromResource(R.drawable.cinema)));
 //f1f73e
     //Creating lines
 //    map.addPolyline(new PolylineOptions().geodesic(true).width(15).color(getResources().getColor(R.color.colorPrimary))
