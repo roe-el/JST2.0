@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+    <TextView
+        style="@style/CustomTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hello! Scroll the map using your fingers to find your stop, or tap a marker its information."/>
+
+    <TextView
+
+        style="@style/CustomTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Use the 'FIND BUS' button to get the shuttles location."/>
+
+    <TextView
+
+        style="@style/CustomTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Push the vertical ellipsis (top right dots) to switch between map types."/>
+
+    <TextView
+
+        style="@style/CustomTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="For more information go to www.tamuk.edu/bgexpress or www.tamuk.edu/bgexpress/schedule.html"/>
+
+</LinearLayout>

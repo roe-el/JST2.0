@@ -1,9 +1,13 @@
 package com.example.android.jst20;
 
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -37,16 +41,14 @@ import java.util.StringTokenizer;
 
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+//For "About" fragment
+boolean aboutOn = false;
 //GoogleMap object
 GoogleMap m_map;
 boolean mapReady = false;
 //For polylines
 LatLng collegeHall2 = new LatLng(27.525138, -97.882431);
 LatLng walMart2 = new LatLng(27.489250, -97.853612);
-
-
-
 
 
 //MarkerOptions Class defines Blue route marker
@@ -84,6 +86,7 @@ public Resources getResources() {
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
 
     //MarkerOptions for Blue route created
     turnerBishop = new MarkerOptions()
@@ -227,9 +230,32 @@ public boolean onOptionsItemSelected(MenuItem item) {
     // as you specify a parent activity in AndroidManifest.xml.
     switch (item.getItemId()) {
         case R.id.action_about:
+            Fragment newFragment = new about();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            if(aboutOn==false){
             // User chose the "Settings" item, show the app settings UI...
             //return true;
-            Toast.makeText(MainActivity.this,"This works",Toast.LENGTH_SHORT).show();
+
+
+            fragmentTransaction.replace(R.id.map, newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            aboutOn=true;
+            }
+            else{
+
+            fragmentTransaction.replace(R.id.map, newFragment);
+                fragmentTransaction.remove(newFragment);
+                fragmentTransaction.commit();
+                aboutOn=false;
+            }
+
+//            FragmentManager fragmentManager = getFragmentManager();
+//            FragmentTransaction fT = fragmentManager.beginTransaction();
+//            about fA = new about();
+//            fT.replace(android.R.id.content, fA);
+//            fT.commit();
             return true;
         case R.id.action_map:
             // User chose the "Favorite" action, mark the current item
